@@ -8,11 +8,14 @@ server.listen(4)
 print('Start')
 
 while True:
-    client_socket, address = server.accept()
-    data = client_socket.recv(1024).decode('utf-8')
-    print(data)
+    client_socket, _ = server.accept()
+    _ = client_socket.recv(1024).decode('utf-8')
     my_list = ['0', '1']
-
     genetate_num = random.choice(my_list)
-
     client_socket.send(genetate_num.encode("utf-8"))
+
+    if genetate_num == '1':
+        client_socket, _ = server.accept()
+        data = client_socket.recv(1024).decode('utf-8')
+        # И вот эту штуку мы уже выводим на табло
+        print(data)
